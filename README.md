@@ -6,51 +6,33 @@ Admin Features
 Dashboard: View system statistics (users, books, borrowed/returned books)
 
 Book Management: Add, view, and manage books in the library
-
 User Management: View all registered users and their activities
-
 Catalog Management: Track borrowed books and overdue items
-
 Admin Management: Add new admin users
-
 Automated Notifications: Email reminders for overdue books
 
 User Features
 Dashboard: View personal borrowing statistics
-
 Book Browsing: Browse and borrow available books
-
 Borrowed Books: Track personal borrowed books (returned and active)
-
 Password Recovery: Secure password reset functionality
-
 OTP Verification: Email verification for new accounts
 
 Technologies Used
 Frontend
 React.js
-
 Redux (State Management)
-
 Chart.js (Data Visualization)
-
 Tailwind CSS (Styling)
-
 React Icons (Icon Library)
 
 Backend
 Node.js
-
 Express.js
-
 MongoDB (Database)
-
 JWT (Authentication)
-
 Nodemailer (Email notifications)
-
 Cloudinary (Image storage)
-
 Cron Jobs (Scheduled tasks)
 
 Installation
@@ -62,36 +44,14 @@ MongoDB Atlas account or local MongoDB installation
 Cloudinary account (for admin avatar storage)
 
 Demo Credentials
-Admin Access
+Admin Access : ->
 Email: jeffryallan26032001@gmail.com
-
 Password: 12345678
 
 User Access
 Register a new account or use the admin credentials above
 
-API Endpoints
-Authentication
-POST /api/v1/auth/register - Register new user (Public)
-POST /api/v1/auth/verify-otp - Verify OTP (Public)
-POST /api/v1/auth/login - User login (Public)
-GET /api/v1/auth/logout - User logout (Private)
-GET /api/v1/auth/me - Get current user (Private)
-POST /api/v1/auth/password/forgot - Forgot password (Public)
-PUT /api/v1/auth/password/reset/:token - Reset password (Public)
-PUT /api/v1/auth/password/update - Update password (Private)
 
-Books
-POST /api/v1/book/admin/add - Add new book (Admin)
-GET /api/v1/book/all - Get all books (Private)
-DELETE /api/v1/book/delete/:id - Delete book (Admin)
-
-Borrow
-POST /api/v1/borrow/record-borrow-book/:id - Admin records borrowed book (Admin)
-POST /api/v1/borrow/borrow-book/:id - User borrows book (Private)
-GET /api/v1/borrow/borrowed-books-by-users - Get all borrowed books (Admin)
-GET /api/v1/borrow/my-borrowed-books - Get user's borrowed books (Private)
-PUT /api/v1/borrow/return-borrowed-book/:bookId - Return borrowed book (Admin)
 
 Users
 GET /api/v1/user/all - Get all users (Admin)
