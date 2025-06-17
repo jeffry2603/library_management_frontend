@@ -99,11 +99,7 @@ const UserDashboard = () => {
                     Let's browse books inventory
                   </p>
                 </div>
-                <img
-                  src={logo_with_title}
-                  alt="logo"
-                  className="hidden lg:block w-auto justify-end"
-                />
+                
               </div>
             </div>
 
@@ -114,7 +110,7 @@ const UserDashboard = () => {
                 character."
               </h4>
               <p className="text-gray-700 text-sm sm:text-lg absolute right-[35px] sm:right-[78px] bottom-[10px]">
-                ~ BookWorm Team
+                ~ BookHero Team
               </p>
             </div>
           </div>
