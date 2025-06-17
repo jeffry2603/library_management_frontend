@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { toggleRecordBookPopup } from "./popUpSlice";
+import { toast } from "react-toastify";
 
 const borrowSlice = createSlice({
   name: "borrow",
@@ -40,7 +41,6 @@ const borrowSlice = createSlice({
       state.error = action.payload;
       state.message = null;
     },
-
     fetchAllBorrowedBooksRequest(state) {
       state.loading = true;
       state.error = null;
@@ -55,7 +55,6 @@ const borrowSlice = createSlice({
       state.error = action.payload;
       state.message = null;
     },
-
     returnBookRequest(state) {
       state.loading = true;
       state.error = null;
@@ -66,6 +65,20 @@ const borrowSlice = createSlice({
       state.message = action.payload;
     },
     returnBookFailed(state, action) {
+      state.loading = false;
+      state.error = action.payload;
+      state.message = null;
+    },
+    userBorrowBookRequest(state) {
+      state.loading = true;
+      state.error = null;
+      state.message = null;
+    },
+    userBorrowBookSuccess(state, action) {
+      state.loading = false;
+      state.message = action.payload;
+    },
+    userBorrowBookFailed(state, action) {
       state.loading = false;
       state.error = action.payload;
       state.message = null;
@@ -139,6 +152,46 @@ export const recordBorrowBook = (email, id) => async (dispatch) => {
     })
     .catch((err) => {
       dispatch(borrowSlice.actions.recordBookFailed(err.response.data.message));
+    });
+};
+
+export const userBorrowBook = (id) => async (dispatch) => {
+  dispatch(borrowSlice.actions.userBorrowBookRequest());
+  await axios
+    .post(
+      `https://library-management-backend-11aa.onrender.com/api/v1/borrow/borrow-book/${id}`,
+      {},
+      {
+        withCredentials: true,
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    )
+    .then((res) => {
+      toast.success("Book borrowed successfully!", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      });
+      dispatch(borrowSlice.actions.userBorrowBookSuccess(res.data.message));
+      dispatch(fetchUserBorrowedBooks());
+    })
+    .catch((err) => {
+      toast.error(err.response?.data?.message || "Failed to borrow book", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      });
+      dispatch(
+        borrowSlice.actions.userBorrowBookFailed(err.response.data.message)
+      );
     });
 };
 
