@@ -53,14 +53,7 @@ Register a new account or use the admin credentials above
 
 
 
-Users
-GET /api/v1/user/all - Get all users (Admin)
-POST /api/v1/user/add/new-admin - Add new admin (Admin)
 
-Scheduled Tasks
-Notify Users: Runs every 30 minutes to send email reminders for overdue books
-
-Clean Unverified Accounts: Runs every 5 minutes to remove unverified accounts older than 30 minutes
 
 Contact
 For any questions or suggestions, please contact the project maintainer at jeffryallan26032001@gmail.com.
