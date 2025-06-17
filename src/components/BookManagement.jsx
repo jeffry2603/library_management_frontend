@@ -11,6 +11,7 @@ import { fetchAllBooks, resetBookSlice } from "../store/slices/bookSlice";
 import {
   fetchAllBorrowedBooks,
   resetBorrowSlice,
+  userBorrowBook,
 } from "../store/slices/borrowSlice";
 import Header from "../layout/Header";
 import AddBookPopup from "../popups/AddBookPopup";
@@ -121,9 +122,7 @@ const BookManagement = () => {
                   )}
                   <th className="px-4 py-2 text-left">Price</th>
                   <th className="px-4 py-2 text-left">Availability</th>
-                  {isAuthenticated && user?.role === "Admin" && (
-                    <th className="px-4 py-2 text-center">Record Book</th>
-                  )}
+                  <th className="px-4 py-2 text-left">Action</th>
                 </tr>
               </thead>
               <tbody>
@@ -142,14 +141,30 @@ const BookManagement = () => {
                     <td className="px-4 py-2">
                       {book.availability ? "Available" : "Unavailable"}
                     </td>
-                    {isAuthenticated && user?.role === "Admin" && (
-                      <td className="px-4 py-2 flex space-x-2 my-3 justify-center">
-                        <BookA onClick={() => openReadPopup(book._id)} />
-                        <NotebookPen
-                          onClick={() => openRecordBookPopup(book._id)}
-                        />
-                      </td>
-                    )}
+                    <td className="px-4 py-2">
+                      {isAuthenticated && user?.role === "Admin" ? (
+                        <div className="flex space-x-2 my-3 justify-center">
+                          <BookA onClick={() => openReadPopup(book._id)} />
+                          <NotebookPen
+                            onClick={() => openRecordBookPopup(book._id)}
+                          />
+                        </div>
+                      ) : (
+                        isAuthenticated && (
+                          <button
+                            onClick={() => dispatch(userBorrowBook(book._id))}
+                            disabled={!book.availability}
+                            className={`px-3 py-1 rounded-md ${
+                              book.availability
+                                ? "bg-blue-600 hover:bg-blue-700 text-white"
+                                : "bg-gray-300 cursor-not-allowed"
+                            }`}
+                          >
+                            Borrow
+                          </button>
+                        )
+                      )}
+                    </td>
                   </tr>
                 ))}
               </tbody>
